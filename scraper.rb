@@ -8,6 +8,6 @@ en_names = EveryPolitician::Wikidata.wikipedia_xpath(
   xpath: '//table[.//th[contains(.,"Party")]]//tr//td[1]//a[not(@class="new")][1]/@title',
 ) 
 
-EveryPolitician::Wikidata.scrape_wikidata(names: { en: en_names }, output: true)
+EveryPolitician::Wikidata.scrape_wikidata(names: { en: en_names }, output: false)
 warn EveryPolitician::Wikidata.notify_rebuilder
 
