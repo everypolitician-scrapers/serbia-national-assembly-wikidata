@@ -8,5 +8,7 @@ en_names = EveryPolitician::Wikidata.wikipedia_xpath(
   xpath: '//table[.//th[contains(.,"Party")]]//tr//td[1]//a[not(@class="new")][1]/@title',
 ) 
 
-EveryPolitician::Wikidata.scrape_wikidata(names: { en: en_names }, output: false)
+sr_names = WikiData::Category.new('Категорија:Народни посланици Скупштине Србије', 'sr').member_titles
+
+EveryPolitician::Wikidata.scrape_wikidata(names: { en: en_names, sr: sr_names })
 
