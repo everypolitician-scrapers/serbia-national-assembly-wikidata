@@ -22,8 +22,13 @@ en['2008'] = EveryPolitician::Wikidata.wikipedia_xpath(
 
 sr_names = WikiData::Category.new('Категорија:Народни посланици Скупштине Србије', 'sr').member_titles
 
-sparq = 'SELECT DISTINCT ?item WHERE { ?item p:P39 [ ps:P39 wd:Q21295999 ; pq:P2937 wd:Q30155066 ] }'
+sparq = <<~SPARQL
+  SELECT DISTINCT ?item ?ordinal WHERE {
+    ?item p:P39 [ ps:P39 wd:Q21295999 ; pq:P2937 ?term ] .
+    ?term p:P31/pq:P1545 ?ordinal .
+    FILTER (xsd:integer(?ordinal) >= 10)
+  }
+SPARQL
 ids = EveryPolitician::Wikidata.sparql(sparq)
 
 EveryPolitician::Wikidata.scrape_wikidata(ids: ids, names: { en: en.values.inject(&:|), sr: sr_names })
-
